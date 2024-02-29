@@ -8,7 +8,7 @@ public class rotation : MonoBehaviour
 
     void Update()
     {
-        x += Time.deltaTime * 50;
+        x += Time.deltaTime * 70;
         transform.rotation = Quaternion.Euler(x, 0, 0);
     }
 }
