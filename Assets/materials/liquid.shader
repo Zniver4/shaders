@@ -42,8 +42,8 @@ Shader "Jettelly/Liquid"
             float4 _TopColor;
             float4 _MidColor;
             float4 _BaseColor;
-            float4 _LiquidAmount;
-            float4 _MidAmount;
+            float _LiquidAmount;
+            float _MidAmount;
 
 
             v2f vert (appdata v)
