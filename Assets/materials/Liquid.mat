@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bottle
-  m_Shader: {fileID: 4800000, guid: 580b4988a4e42d5438086aa4ff8ac253, type: 3}
+  m_Name: Liquid
+  m_Shader: {fileID: 4800000, guid: 8d5f51d52076b4944b88ecb3fe396924, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -22,14 +22,13 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c8f153d60062eab45baa1612a758c175, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Power: 1
+    - _LiquidAmount: 0
+    - _MidAmount: 0.2
     m_Colors:
-    - _Color: {r: 0.2660625, g: 1, b: 0, a: 1}
+    - _BaseColor: {r: 0.13016467, g: 0.4433962, b: 0.02300641, a: 1}
+    - _MidColor: {r: 1, g: 0.24081752, b: 0, a: 1}
+    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

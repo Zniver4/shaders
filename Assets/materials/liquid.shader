@@ -1,12 +1,20 @@
-Shader "Unlit/liquid"
+Shader "Jettelly/Liquid"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+      _TopColor ("Top Color", Color) = (0, 1, 1, 1)
+      _MidColor ("Middle Color", Color) = (1, 0, 1, 1)
+      _BaseColor ("Base Color", Color) = (1, 1, 0, 1)
+      [Space(10)]
+      _LiquidAmount ("Liquid Amount", Range(-2, 2)) = 0
+      _MidAmount ("Middle Amount", Range(0, 0.2)) = 0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Opaque" "DisableBatching" = "True"}
+        ZWrite On
+        Cull Off
+        AlphatoMask On
         LOD 100
 
         Pass
@@ -14,7 +22,6 @@ Shader "Unlit/liquid"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
             #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
@@ -28,29 +35,39 @@ Shader "Unlit/liquid"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                float4 liquidEdge : TEXCOORD1;
             };
 
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
+            float4 _TopColor;
+            float4 _MidColor;
+            float4 _BaseColor;
+            float4 _LiquidAmount;
+            float4 _MidAmount;
+
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.uv = v.uv;
+                float3 worldPosition = mul(unity_ObjectToWorld, v.vertex.xyz);
+                o.liquidEdge = worldPosition.y + _LiquidAmount;
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag (v2f i, fixed facing : VFACE) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return col;
+                fixed4 midEdge = step(i.liquidEdge, 0.5) - smoothstep(i.liquidEdge, 0.5, (0.5 - _MidAmount));
+                fixed4 midEdgeColor = midEdge * _MidColor;
+
+                fixed4 base = step(i.liquidEdge, 0.5) - midEdge;
+                fixed4 baseColor = base * _BaseColor;
+
+                fixed4 renderBase = baseColor + midEdgeColor;
+                fixed4 renderTop = _TopColor * (midEdge + base);
+
+                return facing > 0 ? renderBase: renderTop;
             }
             ENDCG
         }
