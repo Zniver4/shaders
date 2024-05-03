@@ -28,7 +28,7 @@ Material:
     - _LiquidAmount: 0
     - _MidAmount: 0.2
     m_Colors:
-    - _BaseColor: {r: 0.13016467, g: 0.4433962, b: 0.02300641, a: 1}
-    - _MidColor: {r: 0.28579426, g: 1, b: 0, a: 1}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.10070309, g: 0.6886792, b: 0.6402396, a: 1}
+    - _MidColor: {r: 0.15312389, g: 0.8773585, b: 0.8189501, a: 1}
+    - _TopColor: {r: 0.30655926, g: 0.7830189, b: 0.77815163, a: 1}
   m_BuildTextureStacks: []
