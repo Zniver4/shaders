@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class rotation : MonoBehaviour
 {
-    float x;
+    public float x;
+    public float y;
+    public float z;
 
     void Update()
     {
         x += Time.deltaTime * 70;
-        transform.rotation = Quaternion.Euler(x, 0, 0);
+        y += Time.deltaTime * 80; 
+        z += Time.deltaTime * 90; 
+        transform.rotation = Quaternion.Euler(x, y, z);
     }
+
 }
